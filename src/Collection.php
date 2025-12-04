@@ -357,7 +357,7 @@ class Collection implements ArrayAccess, Countable, IteratorAggregate, JsonSeria
         }
 
         return $this->filter(function ($data) use ($field, $operator, $value) {
-            if (strpos($field, '.')) {
+            if (str_contains($field, '.')) {
                 [$field, $relation] = explode('.', $field);
 
                 $result = $data[$field][$relation] ?? null;
@@ -382,7 +382,7 @@ class Collection implements ArrayAccess, Countable, IteratorAggregate, JsonSeria
                 case '<=':
                     return $result <= $value;
                 case 'like':
-                    return is_string($result) && false !== strpos($result, $value);
+                    return is_string($result) && str_contains($result, $value);
                 case 'not like':
                     return is_string($result) && false === strpos($result, $value);
                 case 'in':
